@@ -1,4 +1,3 @@
-
 struct GoAWSConfig <: AWS.AbstractAWSConfig
     endpoint::URI
     region::String

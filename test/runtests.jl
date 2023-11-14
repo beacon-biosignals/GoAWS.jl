@@ -1,10 +1,34 @@
 using GoAWS
 using Test
 using AWS
+using Aqua
+
 @service SQS use_response_type = true
 
+@testset "Aqua" begin
+    Aqua.test_all(GoAWS; ambiguities=false)
+end
+
 @testset "GoAWS.jl" begin
-    @testset begin
+
+    @testset "Server" begin
+        server = GoAWS.Server()
+        @test_throws ErrorException kill(server)
+        @test_throws ErrorException process_running(server)
+        @test_throws ErrorException process_exited(server)
+        run(server; wait=false)
+        @test isnothing(server.config_path)
+        try
+            @test process_running(server)
+            @test !isnothing(server.config_path)
+        finally
+            kill(server)
+        end
+        @test process_exited(server)
+        @test isnothing(server.config_path)
+    end
+
+    @testset "with_go_aws" begin
         with_go_aws() do aws_config
             result = parse(SQS.create_queue("my_queue"; aws_config))
             queue_url = result["CreateQueueResult"]["QueueUrl"]

@@ -10,17 +10,19 @@ mutable struct Server
 end
 
 """
-    Server(; cmd=`/Users/eph/goaws/goaws`,
-            config=default_config(),
-            address::URI=DEFAULT_ADDRESS,
-            region="us-east-2",
-            detach::Bool=false)
+    GoAWS.Server(; cmd=`/Users/eph/goaws/goaws`,
+                 config=GoAWS.default_config(),
+                 address::URI=GoAWS.DEFAULT_ADDRESS,
+                 region="us-east-2",
+                 detach::Bool=false)
 
 A data structure for managing a `goaws` server process.
 
+The passed-in `config` will be mutated in-place to add the `host` and `port` from `address`,
+and the `region`.
+
 Supports `run`, `kill`, `getpid`, `process_exited`, and `process_running`.
 Can also be used with [`with_go_aws`](@ref).
-
 """
 function Server(; cmd=`/Users/eph/goaws/goaws`,
                 config=default_config(),
@@ -47,7 +49,7 @@ function Base.run(s::Server; wait=true)
 end
 
 function _check_initialized(s::Server)
-    isnothing(s.process) && error("invalid operation on uninitialized server object $s")
+    isnothing(s.process) && error("invalid operation on unstarted server object $(s). Call `run` to start the server first.")
 end
 
 function Base.kill(s::Server)
