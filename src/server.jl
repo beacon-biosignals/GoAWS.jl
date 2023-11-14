@@ -9,6 +9,7 @@ mutable struct Server
     config_path::Union{String, Nothing}
 end
 
+# TODO- use JLL once https://github.com/JuliaPackaging/Yggdrasil/pull/7678 is merged
 """
     GoAWS.Server(; cmd=`/Users/eph/goaws/goaws`,
                  config=GoAWS.default_config(),
