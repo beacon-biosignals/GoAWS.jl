@@ -9,9 +9,8 @@ mutable struct Server
     config_path::Union{String, Nothing}
 end
 
-# TODO- use JLL once https://github.com/JuliaPackaging/Yggdrasil/pull/7678 is merged
 """
-    GoAWS.Server(; cmd=`/Users/eph/goaws/goaws`,
+    GoAWS.Server(; cmd=goaws_jll.goaws(),
                  config=GoAWS.default_config(),
                  address::URI=GoAWS.DEFAULT_ADDRESS,
                  region="us-east-2",
@@ -25,7 +24,7 @@ and the `region`.
 Supports `run`, `kill`, `getpid`, `process_exited`, and `process_running`.
 Can also be used with [`with_go_aws`](@ref).
 """
-function Server(; cmd=`/Users/eph/goaws/goaws`,
+function Server(; cmd=goaws(),
                 config=default_config(),
                 address::URI=DEFAULT_ADDRESS,
                 region="us-east-2",

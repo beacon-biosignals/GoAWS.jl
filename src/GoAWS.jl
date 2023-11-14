@@ -4,6 +4,7 @@ using AWS
 using URIs
 using YAML
 using Base: Process
+using goaws_jll
 
 # We load this at precompilation time, so we need to recompile if it is stale
 Base.include_dependency(joinpath(@__DIR__, "default_config.yaml"))
