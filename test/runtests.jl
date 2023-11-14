@@ -17,9 +17,11 @@ end
         @test_throws ErrorException kill(server)
         @test_throws ErrorException process_running(server)
         @test_throws ErrorException process_exited(server)
+        @test_throws ErrorException get_pid(server)
         @test isnothing(server.config_path)
         run(server; wait=false)
         try
+            @test get_pid(server) isa Number
             @test process_running(server)
             @test !isnothing(server.config_path)
             # While the port is occupied, test we can load another server on another port
