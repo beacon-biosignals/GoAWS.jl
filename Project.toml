@@ -1,0 +1,13 @@
+name = "GoAWS"
+uuid = "00b10cec-568b-4d01-83ea-8604cd7f25ae"
+authors = ["Beacon Biosignals", "Inc."]
+version = "1.0.0-DEV"
+
+[compat]
+julia = "1.6"
+
+[extras]
+Test = "8dfed614-e22c-5e08-85e1-65c5234f0b40"
+
+[targets]
+test = ["Test"]
