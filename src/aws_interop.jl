@@ -3,7 +3,7 @@ struct GoAWSConfig <: AWS.AbstractAWSConfig
     region::String
 end
 
-GoAWSConfig(; endpoint=DEFAULT_ADDRESS, region="us-east-2") = GoAWSConfig(endpoint, region)
+GoAWSConfig(; endpoint=DEFAULT_ADDRESS, region="us-east-2") = GoAWSConfig(server_uri(endpoint), region)
 
 AWS.region(cfg::GoAWSConfig) = cfg.region
 AWS.credentials(::GoAWSConfig) = AWSCredentials("", "", "", "")

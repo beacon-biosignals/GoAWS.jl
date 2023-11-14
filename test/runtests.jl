@@ -2,6 +2,7 @@ using GoAWS
 using Test
 using AWS
 using Aqua
+using URIs
 
 @service SQS use_response_type = true
 
@@ -58,6 +59,11 @@ end
         
             SQS.delete_queue(queue_url; aws_config)
         end
+    end
 
+    @testset "GoAWSConfig" begin
+        # Can pass strings
+        cfg = GoAWSConfig(; endpoint = "localhost:40912")
+        @test cfg.endpoint == URI("http://localhost:40912")
     end
 end
