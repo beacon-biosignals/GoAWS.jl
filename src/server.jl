@@ -120,6 +120,7 @@ Starts up a GoAWS server, runs `f(go_aws_config::AbstractAWSConfig)`, with an AW
 and destroys the server when `f()` finishes or errors.
 """
 function with_go_aws(f; address=DEFAULT_ADDRESS, region="us-east-2", kw...)
+    address = server_uri(address)
     server = Server(; address, region, kw...)
     try
         run(server; wait=false)
