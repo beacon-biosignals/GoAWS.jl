@@ -22,6 +22,11 @@ server = Server(; config)
 To see what configuration options are available, see the example config in the GoAWS source:
 <https://github.com/Admiral-Piett/goaws/blob/v0.4.5/app/conf/goaws.yaml>.
 
+## Troubleshooting steps
+
+* Create the server with `verbose=true` to print messages to `stdout`/`stderr`.
+* Call `run` with `wait=false` to error if the process errors.
+
 ## API documentation
 
 ```@autodocs

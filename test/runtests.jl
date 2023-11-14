@@ -10,21 +10,32 @@ using Aqua
 end
 
 @testset "GoAWS.jl" begin
-
     @testset "Server" begin
-        server = GoAWS.Server()
+        server = GoAWS.Server(; address="localhost:4103")
+        @test sprint(show, server) == "GoAWS.Server(\"http://localhost:4103\", unstarted)"
+
         @test_throws ErrorException kill(server)
         @test_throws ErrorException process_running(server)
         @test_throws ErrorException process_exited(server)
-        run(server; wait=false)
         @test isnothing(server.config_path)
+        run(server; wait=false)
         try
             @test process_running(server)
             @test !isnothing(server.config_path)
+            # While the port is occupied, test we can load another server on another port
+            server2 = GoAWS.Server(; address="localhost:4104")
+            run(server2; wait=false)
+            sleep(1) # let it startup before we kill it, so we get a 0 exitcode
+            kill(server2)
+            sleep(1)
+            @test server2.process.exitcode == 0
         finally
+            sleep(1) # let it startup before we kill it, so we get a 0 exitcode
             kill(server)
+            sleep(1)
         end
         @test process_exited(server)
+        @test server.process.exitcode == 0
         @test isnothing(server.config_path)
     end
 
