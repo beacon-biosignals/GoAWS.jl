@@ -125,13 +125,10 @@ function with_go_aws(f; address=DEFAULT_ADDRESS, region="us-east-2", kw...)
     try
         run(server; wait=false)
         sleep(0.5)  # give the server just a bit of time, though it is very fast to start
-        config = GoAWSConfig(server)
+        config = GoAWSConfig(address, region)
         f(config)
     finally
         # Make sure we kill the server even if a test failed.
         kill(server)
     end
 end
-
-# Helper to create a config from a server directly
-GoAWSConfig(s::Server) = GoAWSConfig(; endpoint=s.address, s.region)
