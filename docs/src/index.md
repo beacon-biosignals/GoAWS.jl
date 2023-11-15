@@ -26,6 +26,7 @@ To see what configuration options are available, see the example config in the G
 
 * Create the server with `verbose=true` to print messages to `stdout`/`stderr`.
 * Call `run` with `wait=false` to error if the process errors.
+* Do not pass floating-point values as the timeout for `SQS.change_message_visibility` with AWS.jl. Those are [required to be integers by AWS](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/APIReference/API_ChangeMessageVisibility.html) and GoAWS in particular seems to handle them poorly (go panics without a clear error message).
 
 ## API documentation
 
