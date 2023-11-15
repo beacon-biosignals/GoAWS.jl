@@ -1,9 +1,9 @@
 # GoAWS
 
-[![Stable](https://img.shields.io/badge/docs-stable-blue.svg)](https://ericphanson.github.io/GoAWS.jl/stable/)
-[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://ericphanson.github.io/GoAWS.jl/dev/)
-[![Build Status](https://github.com/ericphanson/GoAWS.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/ericphanson/GoAWS.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/ericphanson/GoAWS.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/ericphanson/GoAWS.jl)
+[![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://beacon-biosignals.github.io/GoAWS.jl/dev/)
+[![Build Status](https://github.com/beacon-biosignals/GoAWS.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/beacon-biosignals/GoAWS.jl/actions/workflows/CI.yml?query=branch%3Amain)
+[![Coverage](https://codecov.io/gh/beacon-biosignals/GoAWS.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/beacon-biosignals/GoAWS.jl)
+[![Code Style: YASGuide](https://img.shields.io/badge/code%20style-yas-violet.svg)](https://github.com/jrevels/YASGuide)
 
 Provides a Julia interface to [goaws](https://github.com/Admiral-Piett/goaws), which provides a local clone of AWS SQS and SNS.
 See the [goaws](https://github.com/Admiral-Piett/goaws) readme for what is supported and what is not.

@@ -88,7 +88,7 @@ end
 
 function _check_initialized(s::Server)
     return isnothing(s.process) &&
-        error("invalid operation on unstarted server object $(s). Call `run` to start the server first.")
+           error("invalid operation on unstarted server object $(s). Call `run` to start the server first.")
 end
 
 function Base.kill(s::Server)
