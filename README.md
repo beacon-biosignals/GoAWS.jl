@@ -2,7 +2,7 @@
 
 [![Dev](https://img.shields.io/badge/docs-dev-blue.svg)](https://beacon-biosignals.github.io/GoAWS.jl/dev/)
 [![Build Status](https://github.com/beacon-biosignals/GoAWS.jl/actions/workflows/CI.yml/badge.svg?branch=main)](https://github.com/beacon-biosignals/GoAWS.jl/actions/workflows/CI.yml?query=branch%3Amain)
-[![Coverage](https://codecov.io/gh/beacon-biosignals/GoAWS.jl/branch/main/graph/badge.svg)](https://codecov.io/gh/beacon-biosignals/GoAWS.jl)
+[![codecov](https://codecov.io/gh/beacon-biosignals/GoAWS.jl/graph/badge.svg?token=JWPK2WF4R6)](https://codecov.io/gh/beacon-biosignals/GoAWS.jl)
 [![Code Style: YASGuide](https://img.shields.io/badge/code%20style-yas-violet.svg)](https://github.com/jrevels/YASGuide)
 
 Provides a Julia interface to [goaws](https://github.com/Admiral-Piett/goaws), which provides a local clone of AWS SQS and SNS.
