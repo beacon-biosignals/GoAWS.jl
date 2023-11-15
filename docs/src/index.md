@@ -12,7 +12,8 @@ Documentation for [GoAWS](https://github.com/ericphanson/GoAWS.jl).
 ## Configuration
 
 To configure the server, pass `config`. It is suggested to modify the default config, for example:
-```
+
+```julia
 config = GoAWS.default_config()
 config["Local"]["LogToFile"] = true
 server = Server(; config)
