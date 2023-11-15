@@ -10,10 +10,15 @@ using URIs
     Aqua.test_all(GoAWS; ambiguities=false)
 end
 
+port = 41231
 @testset "GoAWS.jl" begin
     @testset "Server" begin
-        server = GoAWS.Server(; address="localhost:4103")
-        @test sprint(show, server) == "GoAWS.Server(\"http://localhost:4103\", unstarted)"
+        server = GoAWS.Server(; address="localhost:$port")
+        @test sprint(show, server) == "GoAWS.Server(\"http://localhost:$port\", unstarted)"
+
+        config = GoAWSConfig(server) # test constructing config from server object
+        @test config.endpoint == server.address
+        @test config.region == server.region
 
         @test_throws ErrorException kill(server)
         @test_throws ErrorException process_running(server)
@@ -21,12 +26,15 @@ end
         @test_throws ErrorException getpid(server)
         @test isnothing(server.config_path)
         run(server; wait=false)
+        sleep(0.5)
         try
+            @test sprint(show, server) ==
+                  "GoAWS.Server(\"http://localhost:$port\", running)"
             @test getpid(server) isa Number
             @test process_running(server)
             @test !isnothing(server.config_path)
             # While the port is occupied, test we can load another server on another port
-            server2 = GoAWS.Server(; address="localhost:4104")
+            server2 = GoAWS.Server(; address="localhost:$(port+1)")
             run(server2; wait=false)
             sleep(1) # let it startup before we kill it, so we get a 0 exitcode
             kill(server2)
@@ -37,6 +45,8 @@ end
             kill(server)
             sleep(1)
         end
+        @test sprint(show, server) ==
+              "GoAWS.Server(\"http://localhost:$port\", exited successfully)"
         @test process_exited(server)
         @test server.process.exitcode == 0
         @test isnothing(server.config_path)
