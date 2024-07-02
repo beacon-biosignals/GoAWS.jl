@@ -1,7 +1,7 @@
 name = "GoAWS"
 uuid = "00b10cec-568b-4d01-83ea-8604cd7f25ae"
 authors = ["Beacon Biosignals", "Inc."]
-version = "1.2.0"
+version = "1.2.1"
 
 [deps]
 AWS = "fbe9abb3-538b-5e4e-ba9e-bc94f4f92ebc"
@@ -10,7 +10,7 @@ YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
 goaws_jll = "a437b02d-256c-57cc-b5c6-817ed6633e35"
 
 [compat]
-AWS = "1.8"
+AWS = "1.8 - 1.90"
 Aqua = "0.7.4"
 URIs = "1.5"
 YAML = "0.4.9"
