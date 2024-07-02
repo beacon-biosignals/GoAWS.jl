@@ -10,7 +10,7 @@ YAML = "ddb6d928-2868-570f-bddf-ab3f9cf99eb6"
 goaws_jll = "a437b02d-256c-57cc-b5c6-817ed6633e35"
 
 [compat]
-AWS = "1.8"
+AWS = "1.8 - 1.90"
 Aqua = "0.7.4"
 URIs = "1.5"
 YAML = "0.4.9"
