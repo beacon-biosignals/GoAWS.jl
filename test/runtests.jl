@@ -4,6 +4,8 @@ using AWS
 using Aqua
 using URIs
 
+using Compat: pkgversion
+
 @service SQS use_response_type = true
 
 @testset "Aqua" begin
@@ -53,20 +55,38 @@ port = 41231
     end
 
     @testset "with_go_aws" begin
+        is_sqs_json_response = pkgversion(AWS) >= v"1.91"
+
         with_go_aws() do aws_config
-            result = parse(SQS.create_queue("my_queue"; aws_config))
-            queue_url = result["CreateQueueResult"]["QueueUrl"]
+            parsed = parse(SQS.create_queue("my_queue"; aws_config))
+            queue_url = if is_sqs_json_response
+                parsed["QueueUrl"]
+            else
+                parsed["CreateQueueResult"]["QueueUrl"]
+            end
 
-            ret = parse(SQS.send_message("hello", queue_url; aws_config))
-            id = ret["SendMessageResult"]["MessageId"] # looks like a UUID, but isn't documented to be one, so guess we should leave it as a string
+            parsed = parse(SQS.send_message("hello", queue_url; aws_config))
+            # Looks like a UUID, but isn't documented to be one, so guess we should leave it as a string
+            id = if is_sqs_json_response
+                parsed["MessageId"]
+            else
+                parsed["SendMessageResult"]["MessageId"]
+            end
 
-            messages = parse(SQS.receive_message(queue_url, Dict("WaitTimeSeconds" => 1);
-                                                 aws_config))
+            parsed = parse(SQS.receive_message(queue_url, Dict("WaitTimeSeconds" => 1);
+                                               aws_config))
+            messages = if is_sqs_json_response
+                parsed["Messages"]
+            else
+                [parsed["ReceiveMessageResult"]["Message"]]
+            end
 
-            @test messages["ReceiveMessageResult"]["Message"]["Body"] == "hello"
-            receipt = messages["ReceiveMessageResult"]["Message"]["ReceiptHandle"]
-            @test startswith(receipt, id)
-            SQS.delete_message(queue_url, receipt; aws_config)
+            @test length(messages) == 1
+
+            message = first(messages)
+            @test message["Body"] == "hello"
+            @test startswith(message["ReceiptHandle"], id)
+            SQS.delete_message(queue_url, message["ReceiptHandle"]; aws_config)
 
             return SQS.delete_queue(queue_url; aws_config)
         end
