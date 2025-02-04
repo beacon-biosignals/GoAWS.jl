@@ -41,8 +41,7 @@ jobs:
         shell: julia --color=yes --project {0}
         run: |
           using Pkg
-          Pkg.add(PackageSpec(; name="AWS", version="${{ matrix.aws-jl-version }}");
-                  preserve=PRESERVE_ALL)
+          Pkg.add(PackageSpec(; name="AWS", version="${{ matrix.aws-jl-version }}"))
       - uses: julia-actions/julia-buildpkg@v1
       - uses: julia-actions/julia-runtest@v1
         with:
