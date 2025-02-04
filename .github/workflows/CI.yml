@@ -27,7 +27,7 @@ jobs:
         arch:
           - x64
         aws-jl-version:
-          - "1.63.0"  # Oldest supported version
+          - "1.78.0"  # Oldest supported version
           - "latest"
     steps:
       - uses: actions/checkout@v4
